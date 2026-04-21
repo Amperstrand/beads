@@ -7,8 +7,7 @@ import (
 	"strings"
 )
 
-// Sync mode configuration values (from hq-ew1mbr.3)
-// These control how Dolt syncs with remotes.
+// Config helpers: warnings, logging, and federation sovereignty.
 
 // ConfigWarnings controls whether warnings are logged for invalid config values.
 // Set to false to suppress warnings (useful for tests or scripts).

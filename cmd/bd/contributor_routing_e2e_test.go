@@ -256,7 +256,7 @@ func TestBackwardCompatContributorConfig(t *testing.T) {
 }
 
 // =============================================================================
-// Phase 4: E2E Tests for all sync modes and routing scenarios
+// Phase 4: E2E Tests for all operational modes and routing scenarios
 // =============================================================================
 
 // contributorRoutingEnv provides a reusable test environment for contributor routing tests
@@ -306,7 +306,7 @@ func (env *contributorRoutingEnv) cleanup() {
 }
 
 // initProjectStore initializes the project store with routing config
-func (env *contributorRoutingEnv) initProjectStore(syncMode string) *dolt.DoltStore {
+func (env *contributorRoutingEnv) initProjectStore(mode string) *dolt.DoltStore {
 	env.t.Helper()
 	projectDBPath := filepath.Join(env.projectDir, ".beads", "beads.db")
 	store, err := dolt.New(env.ctx, &dolt.Config{Path: projectDBPath})
@@ -325,8 +325,8 @@ func (env *contributorRoutingEnv) initProjectStore(syncMode string) *dolt.DoltSt
 		env.t.Fatalf("failed to set issue_prefix: %v", err)
 	}
 
-	// Set sync mode-specific config
-	switch syncMode {
+	// Set mode-specific config
+	switch mode {
 	case "direct":
 		// No special config needed - direct is default
 	case "sync-branch":
