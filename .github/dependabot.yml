@@ -1,32 +1,23 @@
+# 2026-11-14 fleet rollout (owner decision, green-PR interview): updates
+# arrive GROUPED weekly instead of per-package PR streams — ends the
+# dependabot churn class behind the 40-PR backlog the fleet review triaged.
 version: 2
 updates:
-  # Go modules
-  - package-ecosystem: "gomod"
+  - package-ecosystem: gomod
     directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "go"
-
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      interval: weekly
+    groups:
+      go-dependencies:
+        patterns: ["*"]
+    commit-message:
+      prefix: "build(deps)"
+  - package-ecosystem: npm
+    directory: "/website"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "ci"
-
-  # Python (beads-mcp)
-  - package-ecosystem: "pip"
-    directory: "/integrations/beads-mcp"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "python"
-      - "mcp"
+      interval: weekly
+    groups:
+      npm-dependencies:
+        patterns: ["*"]
+    commit-message:
+      prefix: "build(deps)"
