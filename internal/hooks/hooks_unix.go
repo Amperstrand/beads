@@ -85,8 +85,10 @@ func (r *Runner) runHook(hookPath, event string, issue *types.Issue) (retErr err
 				return fmt.Errorf("kill process group: %w", err)
 			}
 		}
-		// Wait for process to exit after the kill attempt
-		<-done
+		// Wait for process to exit after the kill attempt; the wait
+		// error is deliberately discarded — ctx.Err() is the operative
+		// failure on this path.
+		_ = <-done
 		addHookOutputEvents(span, &stdout, &stderr)
 		return ctx.Err()
 	case err := <-done:
